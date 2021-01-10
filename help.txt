@@ -1,0 +1,79 @@
+NAME
+    timt - toggl cli
+
+SYNOPSIS
+    timt <command> <subcommand> [options and parameters]
+
+GLOBAL OPTIONS:
+     -v             verbose
+     -t             type - report type - default to details if not specified
+                        d details
+                        w weekly
+                        s summary
+                    example:
+                        timt -t d
+     -w             workspace
+                        c, m or s
+                        example:
+                            timt -w c #print workspace
+     -j, --json         print results in JSON format. Same as --out json
+     --out          json, #todo to deprecate?
+     -d, --debug    todo
+
+COMMANDS:
+    GENERAL
+        help                abc help - show this help message. Alternatively, enter 'abc' to read this as well.
+
+GENERAL SUBCOMMANDS:
+    ls          abc incidents ls ... -- show flattened output. to deprecate? equivalent to -d0, but this is not
+                implemented consistently yet.
+
+COMMON PARAMETERS:
+    time
+        -1, -2, .... -n
+            todo get the latest 1 or the latest 2 items
+        --start, -s
+            if the -s parameter is not provided at all, assume that -s today is meant.
+            if any part of the date is not defined, the current day/month/year is used as the default. if an hour or minute
+            is not defined, midnight 0000h is assumed as the default.
+
+            the time parameter accepts a date in several formats:
+                examples:                   explanation:
+                today                       midnight today
+              # m/h/d/w
+                60m                         60 minutes ago
+                60h                         60 hours ago
+                60d                         60 days ago
+                60w                         60 weeks ago
+              # calendar week/month
+                0cw                         beginning of the current week (this week's monday)
+                1cw                         beginning of last week (last monday)
+                0cm                         beginning of the current month (1st of this month)
+                60m                         60 months ago
+                1                           midnight (0000h) of the 1st day of the current month
+                1210                        midnight, 12th october of the current year
+                1210t1, 1102t7, 1210t13     12 oct 0100h, 11 feb 0700h, 12 oct 1300h
+                1301t123                    13 jan 0123h
+                t1, 1h, t13, 13h            both t1 and 1h refer to 1 am today. t13 and 13h refers to 1pm.
+                t1317, 1317h, t117, 117h    naturally, you can specify the minute as well.
+        --end, -e
+            see --start parameter
+        -r range
+            overrides -s or -e if they are present
+                0m                          start of this month to end of this month
+                1m                          start of last month to (end of last month)
+                1w                          start of last week but add 1 month?
+                1m1w                        start of last month to (add 1 week) todo: does not make sense
+REPORTS:
+    detailed
+            --dd
+                very detailed, no grouping
+    weekly
+    summary
+        options
+            -d
+        examples:
+            timt -t s
+            timt -t s -d
+                display additional depth
+

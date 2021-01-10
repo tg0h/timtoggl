@@ -1,0 +1,156 @@
+{
+  "reportUrl": "https://api.track.toggl.com/reports/api/v2/",
+  "apiUrl": "https://api.track.toggl.com/api/v8/",
+  "userAgent": "timothysl_goh@certisgroup.com",
+  "workspaces": {
+    "certis": 3861113,
+    "study": 1335456,
+    "me": 4858804
+  },
+  "projects": {
+    "165407941": {
+      "name": "010 devops",
+      "hex_color": "#e36a00"
+    },
+    "165405803": {
+      "name": "010 devops",
+      "hex_color": "#e36a00"
+    },
+    "165407953": {
+      "name": "110 process",
+      "hex_color": "#566614"
+    },
+    "165405783": {
+      "name": "110 process",
+      "hex_color": "#566614"
+    },
+    "165405790": {
+      "name": "120 scrum",
+      "hex_color": "#525266"
+    },
+    "165407973": {
+      "name": "210 design",
+      "hex_color": "#2da608"
+    },
+    "165405770": {
+      "name": "210 design",
+      "hex_color": "#2da608"
+    },
+    "165408628": {
+      "name": "230 test",
+      "hex_color": "#d92b2b"
+    },
+    "165408004": {
+      "name": "230 test",
+      "hex_color": "#d92b2b"
+    },
+    "165405775": {
+      "name": "230 test",
+      "hex_color": "#d92b2b"
+    },
+    "165408282": {
+      "name": "240 release",
+      "hex_color": "#0b83d9"
+    },
+    "165405737": {
+      "name": "240 release",
+      "hex_color": "#0b83d9"
+    },
+    "165408345": {
+      "name": "250 support",
+      "hex_color": "#c7af14"
+    },
+    "165408019": {
+      "name": "250 support",
+      "hex_color": "#c7af14"
+    },
+    "165405743": {
+      "name": "250 support",
+      "hex_color": "#c7af14"
+    },
+    "165405810": {
+      "name": "290 comms",
+      "hex_color": "#525266"
+    },
+    "165408655": {
+      "name": "290 comms",
+      "hex_color": "#525266"
+    },
+    "165408034": {
+      "name": "290 comms",
+      "hex_color": "#525266"
+    },
+    "165408790": {
+      "name": "300 improve",
+      "hex_color": "#06a893"
+    },
+    "165408300": {
+      "name": "300 improve",
+      "hex_color": "#06a893"
+    },
+    "165407623": {
+      "name": "300 improve",
+      "hex_color": "#06a893"
+    },
+    "165408691": {
+      "name": "900 review",
+      "hex_color": "#990099"
+    },
+    "165209164": {
+      "name": "au",
+      "hex_color": "#bf7000"
+    },
+    "165408524": {
+      "name": "calltree 2.0",
+      "hex_color": "#d94182"
+    },
+    "165442953": {
+      "name": "cleaning",
+      "hex_color": "#c7af14"
+    },
+    "165442946": {
+      "name": "exercise",
+      "hex_color": "#06a893"
+    },
+    "165442952": {
+      "name": "home improvement",
+      "hex_color": "#465bb3"
+    },
+    "165935835": {
+      "name": "house errands",
+      "hex_color": "#525266"
+    },
+    "165935847": {
+      "name": "internetting",
+      "hex_color": "#566614"
+    },
+    "165442948": {
+      "name": "journal",
+      "hex_color": "#c9806b"
+    },
+    "165935803": {
+      "name": "leisure",
+      "hex_color": "#c7af14"
+    },
+    "165935756": {
+      "name": "misc",
+      "hex_color": "#525266"
+    },
+    "165442945": {
+      "name": "shopping",
+      "hex_color": "#c7af14"
+    },
+    "165442949": {
+      "name": "social",
+      "hex_color": "#06a893"
+    },
+    "165978848": {
+      "name": "toggl cli",
+      "hex_color": "#2da608"
+    },
+    "165442947": {
+      "name": "tv",
+      "hex_color": "#d92b2b"
+    }
+  }
+}
