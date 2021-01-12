@@ -189,7 +189,6 @@ helper.convertDate = function convertDate(dateParam, returnMoment) {
         let day = groups[1]
         let month = Number(groups[2]) - 1 // months are zero indexed in moment.js zzz
         let year = 2000 + Number(groups[3])
-        console.log(groups);
         t = moment({day: day, month: month, year: year})
     } else if (groups = date.match(d8)) {
         let day = groups[1]

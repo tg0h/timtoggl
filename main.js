@@ -75,7 +75,6 @@ async function run() {
         // startDate = moment().startOf('isoWeek');
         endDate = startDate.clone().add(6, 'days');
     }
-    console.log('startDate',startDate)
     params.since = startDate.format('YYYY-MM-DD')
     params.until = endDate.format('YYYY-MM-DD');
 
@@ -135,7 +134,6 @@ async function run() {
         let dataString = JSON.stringify(data, null, 4);
         console.log(highlight(dataString));
     } else {
-        console.log(data);
         if (data.data.length == 0) {
             let dataString = JSON.stringify(data, null, 4);
             console.log(highlight(dataString));
