@@ -1,5 +1,10 @@
 #!/usr/bin/env node
-require('dotenv').config()
+// the shebang is needed because this is a command line executable
+// package.json > bin maps a command to this file
+// the os needs the shebang to understand what to do with this file
+
+// require('dotenv').config()
+const {authorization} = require('./config/config');
 
 const fetch = require('node-fetch');
 const fs = require('fs');
@@ -26,7 +31,7 @@ async function run() {
     }
 
     const headers = {
-        "Authorization": process.env.AUTHORIZATION
+        "Authorization": authorization
     }
     let requestOptions = {
         method: 'GET',
@@ -107,7 +112,7 @@ async function run() {
 
     const response = await fetch(url, requestOptions)
     let data = await response.json();
-    if (data.error){
+    if (data.error) {
         console.log('toggl api error:', data.error)
         return;
     }
