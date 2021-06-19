@@ -135,6 +135,10 @@ helper.convertDate = function convertDate(dateParam, returnMoment) {
     //if receive 0cw, return this week's monday
     //if receive 1cw, return last week's monday
     const Mwdhm = /(^\d+)(cm|cw|[wdhm]$)/ //only matches h(ours) d(ays) m(inutes) or cw (calendar week)
+
+    //if receive w2, return this year's week 2's monday
+    //if receive 21w2, return year 2021 week 2's monday
+    const yearWeekN = /(\d{2})?w(\d{1,2})$/ // matches w1, w23, 21w1, 19w23 (year 2019, week 23)
     const today = /^today$/
     const d2 = /(^\d{1,2})$/ //specify day only
     const d4 = /(^\d{1,2})(\d{2})$/ //specify day and month
@@ -209,6 +213,12 @@ helper.convertDate = function convertDate(dateParam, returnMoment) {
             dateConfig.minute = min;
         }
         t = moment(dateConfig)
+    } else if (groups = date.match(yearWeekN)) {
+        //if year is not defined, default to current year
+        let year = groups[1] ? +'2000' + parseInt(groups[1]) : new Date().getFullYear(); //?
+        let week = groups[2]
+        //note that the 1st iso week of a year is defined as the week that has the first thursday of the year
+        t = moment().isoWeekYear(year).isoWeek(week).startOf('isoWeek') //?
     }
 
     return t;

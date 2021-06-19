@@ -51,11 +51,15 @@ COMMON PARAMETERS:
                 0cm                         beginning of the current month (1st of this month)
                 60m                         60 months ago
                 1                           midnight (0000h) of the 1st day of the current month
+
+              # ABSOLUTE times
                 1210                        midnight, 12th october of the current year
                 1210t1, 1102t7, 1210t13     12 oct 0100h, 11 feb 0700h, 12 oct 1300h
                 1301t123                    13 jan 0123h
                 t1, 1h, t13, 13h            both t1 and 1h refer to 1 am today. t13 and 13h refers to 1pm.
                 t1317, 1317h, t117, 117h    naturally, you can specify the minute as well.
+                w1                          1st day of iso week 1 of the current year
+                20w16                       1st day of iso week 16 of year 2020
         --end, -e
             see --start parameter
         -r range
