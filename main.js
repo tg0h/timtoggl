@@ -503,7 +503,11 @@ async function format(data, reportType, startDate, endDate) {
                 },
                 style: {'padding-left': 0, 'padding-right': 0}
             })
+            let startWeek = startDate.isoWeek()
+            let endWeek = endDate.isoWeek()
+            
             table1.push(['report type:', reportType]);
+            table1.push(['week:', `${startWeek}${startWeek === endWeek ? "" : endWeek}`]);
             table1.push(['date:', `${startDate.format('DD MMM')} - ${endDate.format('DD MMM')}`]);
             table1.push([chalk.grey('total count:'), chalk.grey(data.total_count)]);
             table1.push([chalk.grey('per page:'), chalk.grey(data.per_page)]);
@@ -758,8 +762,7 @@ async function format(data, reportType, startDate, endDate) {
             return table1.toString() + '\n' + table.toString();
         }
             break
-        case
-        'weekly': {
+        case 'weekly': {
             let headerString = `${chalk.grey('weekly report')}` + '\n';
             headerString += `${chalk.grey('date:')} ${startDate.format('ddd DDMMM')} - ${endDate.format('ddd DDMMM')}`;
 
@@ -918,10 +921,12 @@ async function format(data, reportType, startDate, endDate) {
 
         }
             break
-        case
-        'summary': {
+        case 'summary': {
             //lolo why am i summing this, i can just post a summary group by clients, sub group by projects ...
-            let headerString = `${chalk.grey('date:')} ${startDate.format('ddd DDMMM')} - ${endDate.format('ddd DDMMM')}`;
+            let startWeek = startDate.isoWeek()
+            let endWeek = endDate.isoWeek()
+            let headerString1 = `Week: ${startWeek}${startWeek === endWeek ? "" : endWeek}`;
+            let headerString2 = `${chalk.grey('date:')} ${startDate.format('ddd DDMMM')} - ${endDate.format('ddd DDMMM')}`;
 
             let head, colAligns
             if (argv.d) {
@@ -1040,10 +1045,9 @@ async function format(data, reportType, startDate, endDate) {
                 hAlign: 'left',
                 content: chalk.bold.underline.cyan('Grand Total:')
             }, chalk.bold.underline.cyan(hour), chalk.bold.underline.cyan(min)]);
-            return headerString + '\n' + table.toString();
+            return headerString1 + '\n' + headerString2 + '\n' + table.toString();
 
         }
-            break
     }
 }
 
