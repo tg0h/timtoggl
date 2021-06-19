@@ -225,7 +225,6 @@ helper.convertDate = function convertDate(dateParam, returnMoment) {
 }
 
 helper.convertRange = function convertRange(rangeParam) {
-
     //receives a range and returns a start and end moment
     //range comprises 2 parts - start and duration
     //1w1d -- 1 calendar week ago for duration of 1 day
@@ -233,8 +232,12 @@ helper.convertRange = function convertRange(rangeParam) {
     //1mw -- 1 calendar month ago for duration of 1 week (if no duration number specified, assume 1 )
     //1m -- return 1st to last day of last month
 
+    // w1 - week 1
+    // w12123m - week is greedy, it reads up to 2 chars, this means w12 , add 123months
+    // w1-21m - add a - delimiter to be explicity
+    // w1-1w - add a - delimiter to be explicity
+
     //todo
-    //w1 -- the first week of the year
     //m1 -- the first month of the year
     //m12 -- the 12th month of the year
 
@@ -243,32 +246,35 @@ helper.convertRange = function convertRange(rangeParam) {
     // let groups = date.match(regex)
     let range = String(rangeParam);
 
-    const rangeRegex = /(^\d+)([mw])(\d*)([mw]?)$/ //only matches h(ours) d(ays) m(inutes) or cw (calendar week)
-    if (groups = range.match(rangeRegex)) {
-        let startLength = groups[1] //when does the range begin?
-        let startUnit = groups[2]
-        let durationLength = groups[3] == '' ? 1 : groups[3] //for how long does the range last?
+    // const rangeRegex = /(^\d+)([mw])(\d*)([mw]?)$/ //only matches h(ours) d(ays) m(inutes) or cw (calendar week)
+    const rangeRegex = /(((?<start>\d+)(?<startUnit>[mw]))|(w(?<startIsoWeek>\d{1,2})))-?(?<duration>\d*)(?<durationUnit>[mw]?)$/
+    if (groups = range.match(rangeRegex)?.groups) {
+        let startLength = groups.start
+        let startUnit = groups.startUnit
+        let durationLength = groups.duration == '' ? 1 : groups.duration
 
-        let isNoRangeGiven = false
-        if (!groups[3] && !groups[4]) {
-            isNoRangeGiven = true;
-        }
-
-        let durationUnit = groups[4]
+        let durationUnit = groups.durationUnit
         if (durationUnit == '') {
             durationUnit = startUnit
         }
 
+        let currentYear = new Date().getFullYear();
+        let startIsoWeek = groups.startIsoWeek
         let start, end
-        switch (startUnit) {
-            case 'w':
-                start = moment().startOf('isoWeek').subtract(startLength, 'weeks')
-                break;
-            case 'm':
-                start = moment().subtract(startLength, 'months').date(1)
-                break;
-            default:
-                break;
+        if (groups.startIsoWeek){
+            start = moment().isoWeekYear(currentYear).isoWeek(startIsoWeek).startOf('isoWeek')
+        }
+        else {
+            switch (startUnit) {
+                case 'w':
+                    start = moment().startOf('isoWeek').subtract(startLength, 'weeks')
+                    break;
+                case 'm':
+                    start = moment().subtract(startLength, 'months').date(1)
+                    break;
+                default:
+                    break;
+            }
         }
         switch (durationUnit) {
             case 'w':
@@ -284,7 +290,6 @@ helper.convertRange = function convertRange(rangeParam) {
             start,
             end
         }
-
     }
 
     return t;

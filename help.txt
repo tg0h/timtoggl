@@ -68,6 +68,10 @@ COMMON PARAMETERS:
                 1m                          start of last month to (end of last month)
                 1w                          start of last week but add 1 month?
                 1m1w                        start of last month to (add 1 week) todo: does not make sense
+                w21-1w                      start of week 21 this year, add 1 week, note use of - as delimiter
+                w2112m                      start of week 21 this year, add 12 months. Without a delimiter, week <number>
+                                            is greedy and reads up to 2 digits
+                w12m                        week 12 this year, since month does not have a duration, 1 is assumed.
 REPORTS:
     detailed
             --dd
