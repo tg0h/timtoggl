@@ -237,7 +237,8 @@ helper.convertRange = function convertRange(rangeParam) {
     // w1-21m - add a - delimiter to be explicity
     // w1-1w - add a - delimiter to be explicity
 
-    //todo
+    //todo -
+    // 20m1 -- the first month of year 2020
     //m1 -- the first month of the year
     //m12 -- the 12th month of the year
 
@@ -247,7 +248,7 @@ helper.convertRange = function convertRange(rangeParam) {
     let range = String(rangeParam);
 
     // const rangeRegex = /(^\d+)([mw])(\d*)([mw]?)$/ //only matches h(ours) d(ays) m(inutes) or cw (calendar week)
-    const rangeRegex = /(((?<start>\d+)(?<startUnit>[mw]))|((?<startIsoUnit>[wm])(?<startIso>\d{1,2})))-?(?<duration>\d*)(?<durationUnit>[mw]?)$/
+    const rangeRegex = /(((?<start>\d+)(?<startUnit>[mw]))|((?<startIsoYear>\d{2})?(?<startIsoUnit>[wm])(?<startIso>\d{1,2})))-?(?<duration>\d*)(?<durationUnit>[mw]?)$/
     if (groups = range.match(rangeRegex)?.groups) {
         let startLength = groups.start
         let startUnit = groups.startUnit
@@ -259,17 +260,18 @@ helper.convertRange = function convertRange(rangeParam) {
         }
 
         let currentYear = new Date().getFullYear();
+        let startIsoYear = groups.startIsoYear ? 2000 + parseInt(groups.startIsoYear) : currentYear
         let startIso = groups.startIso
         let startIsoUnit = groups.startIsoUnit
         let start, end
         if (groups.startIso) {
             switch (startIsoUnit) {
                 case 'w':
-                    start = moment().isoWeekYear(currentYear).isoWeek(startIso).startOf('isoWeek')
+                    start = moment().isoWeekYear(startIsoYear).isoWeek(startIso).startOf('isoWeek')
                     break;
                 case 'm':
                     //moment uses 0 based months
-                    start = moment().isoWeekYear(currentYear).month(startIso - 1).startOf('month')
+                    start = moment().isoWeekYear(startIsoYear).month(startIso - 1).startOf('month')
                     break;
             }
         } else {
