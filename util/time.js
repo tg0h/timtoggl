@@ -247,7 +247,7 @@ helper.convertRange = function convertRange(rangeParam) {
     let range = String(rangeParam);
 
     // const rangeRegex = /(^\d+)([mw])(\d*)([mw]?)$/ //only matches h(ours) d(ays) m(inutes) or cw (calendar week)
-    const rangeRegex = /(((?<start>\d+)(?<startUnit>[mw]))|(w(?<startIsoWeek>\d{1,2})))-?(?<duration>\d*)(?<durationUnit>[mw]?)$/
+    const rangeRegex = /(((?<start>\d+)(?<startUnit>[mw]))|((?<startIsoUnit>[wm])(?<startIso>\d{1,2})))-?(?<duration>\d*)(?<durationUnit>[mw]?)$/
     if (groups = range.match(rangeRegex)?.groups) {
         let startLength = groups.start
         let startUnit = groups.startUnit
@@ -259,12 +259,20 @@ helper.convertRange = function convertRange(rangeParam) {
         }
 
         let currentYear = new Date().getFullYear();
-        let startIsoWeek = groups.startIsoWeek
+        let startIso = groups.startIso
+        let startIsoUnit = groups.startIsoUnit
         let start, end
-        if (groups.startIsoWeek){
-            start = moment().isoWeekYear(currentYear).isoWeek(startIsoWeek).startOf('isoWeek')
-        }
-        else {
+        if (groups.startIso) {
+            switch (startIsoUnit) {
+                case 'w':
+                    start = moment().isoWeekYear(currentYear).isoWeek(startIso).startOf('isoWeek')
+                    break;
+                case 'm':
+                    //moment uses 0 based months
+                    start = moment().isoWeekYear(currentYear).month(startIso - 1).startOf('month')
+                    break;
+            }
+        } else {
             switch (startUnit) {
                 case 'w':
                     start = moment().startOf('isoWeek').subtract(startLength, 'weeks')
