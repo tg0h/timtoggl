@@ -72,6 +72,8 @@ COMMON PARAMETERS:
                 w2112m                      start of week 21 this year, add 12 months. Without a delimiter, week <number>
                                             is greedy and reads up to 2 digits
                 w12m                        week 12 this year, since month does not have a duration, 1 is assumed.
+                20w12-1w                    week 12 of year 2020, add 1 week
+                20m12-1w                    month 12 of year 2020, add 1 week
 REPORTS:
     detailed
             --dd
