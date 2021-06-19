@@ -506,6 +506,14 @@ async function format(data, reportType, startDate, endDate) {
             let startWeek = startDate.isoWeek()
             let endWeek = endDate.isoWeek()
 
+            let currentYear = new Date().getFullYear()
+            if (currentYear !== startDate.year() || currentYear !== endDate.year()) {
+                startYear = startDate.year()
+                endYear = endDate.year()
+                let header = `${startYear}${startYear === endYear ? "" : ' - ' + endYear}`;
+                table1.push(['year:', header]);
+            }
+
             table1.push(['week:', `${startWeek}${startWeek === endWeek ? "" : '- ' + endWeek}`]);
             table1.push(['date:', `${startDate.format('ddd DD MMM')} - ${endDate.format('ddd DD MMM')}`]);
             table1.push([chalk.grey('total count:'), chalk.grey(data.total_count)]);
@@ -926,8 +934,16 @@ async function format(data, reportType, startDate, endDate) {
             //lolo why am i summing this, i can just post a summary group by clients, sub group by projects ...
             let startWeek = startDate.isoWeek()
             let endWeek = endDate.isoWeek()
-            let headerString1 = `Week: ${startWeek}${startWeek === endWeek ? "" : ' - ' + endWeek}`;
-            let headerString2 = `${chalk.grey('date:')} ${startDate.format('ddd DD MMM')} - ${endDate.format('ddd DD MMM')}`;
+            let startYear = startDate.year()
+            let currentYear = new Date().getFullYear();
+            let header = "";
+            if (currentYear !== startDate.year() || currentYear !== endDate.year()) {
+                startYear = startDate.year()
+                endYear = endDate.year()
+                header += `Year: ${startYear}${startYear === endYear ? "" : ' - ' + endYear}\n`;
+            }
+            header += `Week: ${startWeek}${startWeek === endWeek ? "" : ' - ' + endWeek}\n`;
+            header += `${chalk.grey('date:')} ${startDate.format('ddd DD MMM')} - ${endDate.format('ddd DD MMM')}\n`;
 
             let head, colAligns
             if (argv.d) {
@@ -1046,7 +1062,7 @@ async function format(data, reportType, startDate, endDate) {
                 hAlign: 'left',
                 content: chalk.bold.underline.cyan('Grand Total:')
             }, chalk.bold.underline.cyan(hour), chalk.bold.underline.cyan(min)]);
-            return headerString1 + '\n' + headerString2 + '\n' + table.toString();
+            return header + table.toString();
 
         }
     }
