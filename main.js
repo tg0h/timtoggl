@@ -505,10 +505,9 @@ async function format(data, reportType, startDate, endDate) {
             })
             let startWeek = startDate.isoWeek()
             let endWeek = endDate.isoWeek()
-            
-            table1.push(['report type:', reportType]);
-            table1.push(['week:', `${startWeek}${startWeek === endWeek ? "" : endWeek}`]);
-            table1.push(['date:', `${startDate.format('DD MMM')} - ${endDate.format('DD MMM')}`]);
+
+            table1.push(['week:', `${startWeek}${startWeek === endWeek ? "" : '- ' + endWeek}`]);
+            table1.push(['date:', `${startDate.format('ddd DD MMM')} - ${endDate.format('ddd DD MMM')}`]);
             table1.push([chalk.grey('total count:'), chalk.grey(data.total_count)]);
             table1.push([chalk.grey('per page:'), chalk.grey(data.per_page)]);
             let hourMin = time.toHourMin(data.total_grand);
@@ -763,7 +762,9 @@ async function format(data, reportType, startDate, endDate) {
         }
             break
         case 'weekly': {
-            let headerString = `${chalk.grey('weekly report')}` + '\n';
+            let startWeek = startDate.isoWeek()
+            let endWeek = endDate.isoWeek()
+            let headerString = `week: ${startWeek}${startWeek === endWeek ? "" : '- ' + endWeek}` + '\n';
             headerString += `${chalk.grey('date:')} ${startDate.format('ddd DDMMM')} - ${endDate.format('ddd DDMMM')}`;
 
             let grandTotal = data.total_grand;
@@ -925,8 +926,8 @@ async function format(data, reportType, startDate, endDate) {
             //lolo why am i summing this, i can just post a summary group by clients, sub group by projects ...
             let startWeek = startDate.isoWeek()
             let endWeek = endDate.isoWeek()
-            let headerString1 = `Week: ${startWeek}${startWeek === endWeek ? "" : endWeek}`;
-            let headerString2 = `${chalk.grey('date:')} ${startDate.format('ddd DDMMM')} - ${endDate.format('ddd DDMMM')}`;
+            let headerString1 = `Week: ${startWeek}${startWeek === endWeek ? "" : ' - ' + endWeek}`;
+            let headerString2 = `${chalk.grey('date:')} ${startDate.format('ddd DD MMM')} - ${endDate.format('ddd DD MMM')}`;
 
             let head, colAligns
             if (argv.d) {
