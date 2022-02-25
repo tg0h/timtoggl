@@ -6,6 +6,8 @@
 * add time parameter for last week starting monday
 * add client totals for the weekly report
 
+## Deploy
+* the .env file contains the api key. it is used by the cli, don't delete it
 
 #Design
 should use a group object to store properties of the group.array
