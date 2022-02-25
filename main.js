@@ -114,8 +114,8 @@ async function run() {
   url.search = queryParams;
 
 
-  console.log('requestOptions', requestOptions)
-  console.log('url', url)
+  // console.log('requestOptions', requestOptions)
+  // console.log('url', url)
   const response = await fetch(url, requestOptions)
   let data = await response.json();
   if (data.error) {
@@ -157,7 +157,7 @@ async function run() {
           data.clientTotals = getClientTotals(data);
         }
       }
-      console.log('data',data)
+      // console.log('data',data)
       let output = await format(data, reportType, startDate, endDate);
       console.log(output);
     }
